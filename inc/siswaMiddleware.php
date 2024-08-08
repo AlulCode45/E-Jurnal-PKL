@@ -1,6 +1,6 @@
 <?php
 
-if (!$_SESSION['user'] || $_SESSION['role'] != 'administrator') {
+if (!$_SESSION['user']) {
     header('Location: /');
 }
 
