@@ -1,7 +1,13 @@
 <?php
 require_once ('../inc/config.php');
 require_once ('../function/sekolahFunction.php');
+require_once ('../function/siswaFunction.php');
 include '../inc/middleware.php';
+
+$sekolah = getSchoolById($_GET['id']);
+if (!isset($sekolah['school_name'])) {
+    header('Location: /dashboard/kelola-sekolah.php');
+}
 ?>
 
 <!--
@@ -94,8 +100,10 @@ include '../inc/middleware.php';
             <div class="row">
                 <div class="col-12">
                     <div class="card mb-4">
-                        <div class="card-header pb-0">
-                            <h6>Data Sekolah</h6>
+                        <div class="card-header pb-0 d-flex justify-content-between">
+                            <h6>Data Siswa Sekolah <?= $sekolah['school_name'] ?></h6>
+                            <a href="/controller/sekolahController.php?id=<?= $sekolah['id'] ?>&action=delete"
+                                class="btn btn-danger">Hapus Sekolah</a>
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
                             <div class="table-responsive p-0">
@@ -104,46 +112,43 @@ include '../inc/middleware.php';
                                         <tr>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Nama Sekolah</th>
+                                                Nama Siswa</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                Asal Kabupaten</th>
-                                            <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Jumlah Siswa</th>
+                                                Devisi
+                                            </th>
                                             <th class="text-secondary opacity-7"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach (getSchool() as $d): ?>
+                                        <?php foreach ($sekolah['students'] as $d): ?>
                                         <tr>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
+                                                    <div>
+                                                        <img src="/assets/img/team-2.jpg" class="avatar avatar-sm me-3"
+                                                            alt="user1">
+                                                    </div>
                                                     <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm"><?= $d['school_name'] ?></h6>
+                                                        <h6 class="mb-0 text-sm"><?= $d['student_name'] ?></h6>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>
-                                                <p class="text-xs font-weight-bold mb-0"><?= $d['regency'] ?></p>
-                                            </td>
-                                            <td class="align-middle text-center text-sm">
-                                                <span class="badge badge-sm bg-gradient-success">
-                                                    <?= count($d['students']) ?>
-                                                </span>
+                                                <p class="text-xs font-weight-bold mb-0"><?= $d['devision_name'] ?></p>
                                             </td>
                                             <td class="align-middle">
-                                                <a href="/dashboard/view-sekolah.php?id=<?= $d['id'] ?>"
+                                                <a href="javascript:;"
                                                     class="text-secondary font-weight-bold text-xs ms-2"
                                                     data-toggle="tooltip" data-original-title="Edit user">
                                                     View
                                                 </a>
-                                                <a href="/dashboard/edit-sekolah.php?id=<?= $d['id'] ?>"
+                                                <a href="/dashboard/edit-siswa.php?id=<?= $d['id'] ?>"
                                                     class="text-secondary font-weight-bold text-xs ms-2"
                                                     data-toggle="tooltip" data-original-title="Edit user">
                                                     Edit
                                                 </a>
-                                                <a href="/controller/schoolController.php?id=<?= $d['id'] ?>&action=delete"
+                                                <a href="/controller/siswaController.php?id=<?= $d['id'] ?>&action=delete"
                                                     class="text-secondary font-weight-bold text-xs ms-2"
                                                     data-toggle="tooltip" data-original-title="Edit user">
                                                     Hapus

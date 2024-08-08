@@ -1,23 +1,19 @@
 <?php
 require_once ('../inc/config.php');
 require_once ('../function/sekolahFunction.php');
+require_once ('../function/siswaFunction.php');
+
 include '../inc/middleware.php';
+
+$params = $_GET['id'] ?? '';
+if ($params == '') {
+    header('Location: /dashboard/kelola-sekolah.php');
+    exit;
+}
+$sekolah = getSchoolById($params);
+$siswa = getSiswa();
 ?>
 
-<!--
-=========================================================
-* Argon Dashboard 2 - v2.0.4
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -94,71 +90,34 @@ include '../inc/middleware.php';
             <div class="row">
                 <div class="col-12">
                     <div class="card mb-4">
-                        <div class="card-header pb-0">
-                            <h6>Data Sekolah</h6>
-                        </div>
-                        <div class="card-body px-0 pt-0 pb-2">
-                            <div class="table-responsive p-0">
-                                <table class="table align-items-center mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Nama Sekolah</th>
-                                            <th
-                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                Asal Kabupaten</th>
-                                            <th
-                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                Jumlah Siswa</th>
-                                            <th class="text-secondary opacity-7"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach (getSchool() as $d): ?>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex px-2 py-1">
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm"><?= $d['school_name'] ?></h6>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <p class="text-xs font-weight-bold mb-0"><?= $d['regency'] ?></p>
-                                            </td>
-                                            <td class="align-middle text-center text-sm">
-                                                <span class="badge badge-sm bg-gradient-success">
-                                                    <?= count($d['students']) ?>
-                                                </span>
-                                            </td>
-                                            <td class="align-middle">
-                                                <a href="/dashboard/view-sekolah.php?id=<?= $d['id'] ?>"
-                                                    class="text-secondary font-weight-bold text-xs ms-2"
-                                                    data-toggle="tooltip" data-original-title="Edit user">
-                                                    View
-                                                </a>
-                                                <a href="/dashboard/edit-sekolah.php?id=<?= $d['id'] ?>"
-                                                    class="text-secondary font-weight-bold text-xs ms-2"
-                                                    data-toggle="tooltip" data-original-title="Edit user">
-                                                    Edit
-                                                </a>
-                                                <a href="/controller/schoolController.php?id=<?= $d['id'] ?>&action=delete"
-                                                    class="text-secondary font-weight-bold text-xs ms-2"
-                                                    data-toggle="tooltip" data-original-title="Edit user">
-                                                    Hapus
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <?php endforeach ?>
-                                    </tbody>
-                                </table>
+                        <form action="/controller/schoolController.php?action=update" method="post">
+                            <div class="card-header pb-0 d-flex justify-content-between align-items-center">
+                                <h6>Data Sekolah</h6>
+                                <button class="btn btn-primary" type="submit">Simpan</button>
                             </div>
-                        </div>
+                            <div class="card-body px-3 pt-0 pb-2">
+                                <input type="hidden" name="id" value="<?= $params ?>">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="nama">Nama Sekolah</label>
+                                            <input type="text" class="form-control" id="name" name="name"
+                                                value="<?= $sekolah['name'] ?>">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="idHead">Kabupaten</label>
+                                            <input type="text" class="form-control" id="regency" name="regency"
+                                                value="<?= $sekolah['regency'] ?>">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-
             <footer class="footer pt-3  ">
                 <div class="container-fluid">
                     <div class="row align-items-center justify-content-lg-between">
