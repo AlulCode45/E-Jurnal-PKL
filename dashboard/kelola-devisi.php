@@ -1,7 +1,7 @@
 <?php
-require_once('../inc/config.php');
-require_once('../function/devisiFunction.php');
-require_once('../function/siswaFunction.php');
+require_once ('../inc/config.php');
+require_once ('../function/devisiFunction.php');
+require_once ('../function/siswaFunction.php');
 include '../inc/middleware.php';
 ?>
 
@@ -119,7 +119,7 @@ include '../inc/middleware.php';
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach (getDevisi() as $d) : ?>
+                                        <?php foreach (getDevisi() as $d): ?>
                                         <tr>
                                             <td>
                                                 <div class="d-flex px-2 py-1">
@@ -142,17 +142,17 @@ include '../inc/middleware.php';
                                                 </span>
                                             </td>
                                             <td class="align-middle">
-                                                <a href="javascript:;"
+                                                <a href="/dashboard/view-devisi.php?id=<?= $d['devision_id'] ?>"
                                                     class="text-secondary font-weight-bold text-xs ms-2"
                                                     data-toggle="tooltip" data-original-title="Edit user">
                                                     View
                                                 </a>
-                                                <a href="javascript:;"
+                                                <a href="/dashboard/edit-devisi.php?id=<?= $d['devision_id'] ?>"
                                                     class="text-secondary font-weight-bold text-xs ms-2"
                                                     data-toggle="tooltip" data-original-title="Edit user">
                                                     Edit
                                                 </a>
-                                                <a href="/controller/devisiController.php?id=<?= $d['id'] ?>&action=delete"
+                                                <a href="/controller/devisiController.php?id=<?= $d['devision_id'] ?>&action=delete"
                                                     class="text-secondary font-weight-bold text-xs ms-2"
                                                     data-toggle="tooltip" data-original-title="Edit user">
                                                     Hapus
@@ -188,7 +188,7 @@ include '../inc/middleware.php';
                                     <label for="example-text-input" class="form-control-label">Ketua Devisi</label>
                                     <select id="" class="form-control" name="idHead">
                                         <option value="">Pilih Ketua</option>
-                                        <?php foreach (getSiswa() as $siswa) :?>
+                                        <?php foreach (getSiswa() as $siswa): ?>
                                         <option value="<?= $siswa['id'] ?>"><?= $siswa['name'] ?></option>
                                         <?php endforeach ?>
                                     </select>

@@ -1,10 +1,17 @@
 <?php
-require_once('../../inc/config.php');
-// require_once('../../function/devisiFunction.php');
+require_once('../inc/config.php');
+require_once('../function/devisiFunction.php');
+require_once('../function/siswaFunction.php');
 
-include '../../inc/middleware.php';
+include '../inc/middleware.php';
 
-// $params = $_GET['id'];
+$params = $_GET['id'] ?? '';
+if ($params == '') {
+    header('Location: /dashboard/kelola-devisi.php');
+    exit;
+}
+$devisi = getDevisiById($params);
+$siswa = getSiswa();
 ?>
 
 <!DOCTYPE html>
@@ -83,52 +90,40 @@ include '../../inc/middleware.php';
             <div class="row">
                 <div class="col-12">
                     <div class="card mb-4">
-                        <div class="card-header pb-0 d-flex justify-content-between">
-                            <h6>Data Devisi</h6>
-                            <button class="btn btn-primary" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">Tambah</button>
-                        </div>
-                        <div class="card-body px-0 pt-0 pb-2">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <form action="/controller/devisiController.php?action=add" method="post">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Tambah Devisi</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+                        <form action="/controller/devisiController.php?action=update" method="post">
+                            <div class="card-header pb-0 d-flex justify-content-between align-items-center">
+                                <h6>Data Devisi</h6>
+                                <button class="btn btn-primary" type="submit">Simpan</button>
                             </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="example-text-input" class="form-control-label">Nama Devisi</label>
-                                    <input class="form-control" type="text" placeholder="Nama devisi" name="nama">
+                            <div class="card-body px-3 pt-0 pb-2">
+                                <input type="hidden" name="id" value="<?= $params ?>">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="nama">Nama Devisi</label>
+                                            <input type="text" class="form-control" id="nama" name="nama"
+                                                value="<?= $devisi['name'] ?>">
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label for="idHead">Kepala Devisi</label>
+                                            <select class="form-control" id="idHead" name="idHead">
+                                                <option value="">Pilih Kepala Devisi</option>
+                                                <?php foreach ($siswa as $s) : ?>
+                                                <option value="<?= $s['id'] ?>"
+                                                    <?= $s['id'] == $devisi['head_on_devision'] ? 'selected' : '' ?>>
+                                                    <?= $s['name'] ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="example-text-input" class="form-control-label">Ketua Devisi</label>
-                                    <select id="" class="form-control" name="idHead">
-                                        <option value="">Pilih Ketua</option>
-                                        <?php foreach (getSiswa() as $siswa) :?>
-                                        <option value="<?= $siswa['id'] ?>"><?= $siswa['name'] ?></option>
-                                        <?php endforeach ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-
             <footer class="footer pt-3  ">
                 <div class="container-fluid">
                     <div class="row align-items-center justify-content-lg-between">

@@ -1,31 +1,40 @@
 <?php
 $urlParams = $_GET['action'];
 
+include '../function/devisiFunction.php'; // Include the function file at the beginning
+
 if ($urlParams == 'add') {
-    include '../function/devisiFunction.php';
     $nama = $_POST['nama'];
     $idHead = $_POST['idHead'];
-    addDevisi($nama, $idHead);
-    header('Location: /dashboard/kelola-devisi.php');
+    $result = addDevisi($nama, $idHead);
+    if ($result) {
+        header('Location: /dashboard/kelola-devisi.php?status=success&message=Devisi added successfully');
+    } else {
+        header('Location: /dashboard/kelola-devisi.php?status=error&message=Failed to add devisi');
+    }
 } else if ($urlParams == 'delete') {
-    include '../function/devisiFunction.php';
     $id = $_GET['id'];
-    deleteDevisi($id);
-    header('Location: /dashboard/kelola-devisi.php');
+    $result = deleteDevisi($id);
+    if ($result) {
+        header('Location: /dashboard/kelola-devisi.php?status=success&message=Devisi deleted successfully');
+    } else {
+        header('Location: /dashboard/kelola-devisi.php?status=error&message=Failed to delete devisi');
+    }
 } else if ($urlParams == 'edit') {
-    include '../function/devisiFunction.php';
     $id = $_GET['id'];
     $devisi = getDevisiById($id);
     include '../views/devisi/edit.php';
 } else if ($urlParams == 'update') {
-    include '../function/devisiFunction.php';
     $id = $_POST['id'];
     $nama = $_POST['nama'];
     $idHead = $_POST['idHead'];
-    updateDevisi($id, $nama, $idHead);
-    header('Location: /dashboard/kelola-devisi.php');
+    $result = updateDevisi($id, $nama, $idHead);
+    if ($result) {
+        header('Location: /dashboard/kelola-devisi.php?status=success&message=Devisi updated successfully');
+    } else {
+        header('Location: /dashboard/kelola-devisi.php?status=error&message=Failed to update devisi');
+    }
 } else {
-    include '../function/devisiFunction.php';
     $devisi = getDevisi();
     include '../dashboard/kelola-devisi.php';
 }

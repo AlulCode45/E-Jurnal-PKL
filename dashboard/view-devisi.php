@@ -1,12 +1,29 @@
 <?php
-require_once('../../inc/config.php');
-// require_once('../../function/devisiFunction.php');
+require_once ('../inc/config.php');
+require_once ('../function/devisiFunction.php');
+require_once ('../function/siswaFunction.php');
+include '../inc/middleware.php';
 
-include '../../inc/middleware.php';
-
-// $params = $_GET['id'];
+$devisi = getDevisiById($_GET['id']);
+if (!isset($devisi[0])) {
+    header('Location: /dashboard/kelola-devisi.php');
+}
 ?>
 
+<!--
+=========================================================
+* Argon Dashboard 2 - v2.0.4
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/argon-dashboard
+* Copyright 2022 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://www.creative-tim.com/license)
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -84,47 +101,65 @@ include '../../inc/middleware.php';
                 <div class="col-12">
                     <div class="card mb-4">
                         <div class="card-header pb-0 d-flex justify-content-between">
-                            <h6>Data Devisi</h6>
-                            <button class="btn btn-primary" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">Tambah</button>
+                            <h6>Data Siswa Devisi <?= $devisi['name'] ?></h6>
+                            <a href="/controller/devisiController.php?id=<?= $devisi['id'] ?>&action=delete"
+                                class="btn btn-danger">Hapus Devisi</a>
                         </div>
                         <div class="card-body px-0 pt-0 pb-2">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <form action="/controller/devisiController.php?action=add" method="post">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Tambah Devisi</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="example-text-input" class="form-control-label">Nama Devisi</label>
-                                    <input class="form-control" type="text" placeholder="Nama devisi" name="nama">
-                                </div>
-                                <div class="form-group">
-                                    <label for="example-text-input" class="form-control-label">Ketua Devisi</label>
-                                    <select id="" class="form-control" name="idHead">
-                                        <option value="">Pilih Ketua</option>
-                                        <?php foreach (getSiswa() as $siswa) :?>
-                                        <option value="<?= $siswa['id'] ?>"><?= $siswa['name'] ?></option>
+                            <div class="table-responsive p-0">
+                                <table class="table align-items-center mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                Nama Siswa</th>
+                                            <th
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                Asal Sekolah
+                                            </th>
+                                            <th class="text-secondary opacity-7"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($devisi['students'] as $d): ?>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div>
+                                                        <img src="/assets/img/team-2.jpg" class="avatar avatar-sm me-3"
+                                                            alt="user1">
+                                                    </div>
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm"><?= $d['student_name'] ?></h6>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p class="text-xs font-weight-bold mb-0"><?= $d['school_name'] ?></p>
+                                            </td>
+                                            <td class="align-middle">
+                                                <a href="javascript:;"
+                                                    class="text-secondary font-weight-bold text-xs ms-2"
+                                                    data-toggle="tooltip" data-original-title="Edit user">
+                                                    View
+                                                </a>
+                                                <a href="/dashboard/edit-devisi.php?id=<?= $d['devision_id'] ?>"
+                                                    class="text-secondary font-weight-bold text-xs ms-2"
+                                                    data-toggle="tooltip" data-original-title="Edit user">
+                                                    Edit
+                                                </a>
+                                                <a href="/controller/devisiController.php?id=<?= $d['devision_id'] ?>&action=delete"
+                                                    class="text-secondary font-weight-bold text-xs ms-2"
+                                                    data-toggle="tooltip" data-original-title="Edit user">
+                                                    Hapus
+                                                </a>
+                                            </td>
+                                        </tr>
                                         <?php endforeach ?>
-                                    </select>
-                                </div>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
