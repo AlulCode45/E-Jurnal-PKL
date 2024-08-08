@@ -1,8 +1,8 @@
 <?php
 require_once ('../inc/config.php');
 require_once ('../function/jurnalFunction.php');
-require_once ('../function/siswaFunction.php');
 include '../inc/siswaMiddleware.php';
+
 ?>
 
 <!--
@@ -25,21 +25,21 @@ include '../inc/siswaMiddleware.php';
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="/assets/img/favicon.png">
     <title>
         Argon Dashboard 2 by Creative Tim
     </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <!-- Nucleo Icons -->
-    <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="./assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link href="/assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <link href="./assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link href="/assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- CSS Files -->
-    <link id="pagestyle" href="./assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
+    <link id="pagestyle" href="/assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
 </head>
 
 <body class="g-sidenav-show   bg-gray-100">
@@ -90,45 +90,77 @@ include '../inc/siswaMiddleware.php';
             </div>
         </nav>
         <!-- End Navbar -->
+
         <div class="container-fluid py-4">
-            <div class="row mt-4">
-                <div class="col-lg-12 mb-lg-0 mb-4">
-                    <div class="card z-index-2 h-100">
-                        <div class="card-header pb-0 pt-3 bg-transparent">
-                            <h6 class="text-capitalize">Tambah Jurnal</h6>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mb-4">
+                        <div class="card-header pb-0">
+                            <h6>Data Jurnal</h6>
                         </div>
-                        <div class="card-body p-3">
-                            <form action="/controller/journalController.php?action=add" method="post">
-                                <input type="hidden" name="student_id" value="<?= $_SESSION['user']['id'] ?>">
-                                <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Nama Siswa</label>
-                                    <input type="text" class="form-control" value="<?= $_SESSION['user']['name'] ?>"
-                                        readonly>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Pekerjaan</label>
-                                    <input type="text" class="form-control" name="job" id="exampleFormControlInput1"
-                                        placeholder="Pekerjaan">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Catatan</label>
-                                    <textarea class="form-control" name="note" id="exampleFormControlTextarea1"
-                                        rows="3"></textarea>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
-                                    <input type="date" class="form-control" name="date" id="exampleFormControlInput1">
-                                </div>
-                                <button type="submit" class="btn bg-gradient-primary w-100 mt-4 mb-0">Tambah
-                                    Jurnal</button>
-                            </form>
+                        <div class="card-body px-0 pt-0 pb-2">
+                            <div class="table-responsive p-0">
+                                <table class="table align-items-center mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                Nama Siswa</th>
+                                            <th
+                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                Tugas</th>
+                                            <th
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                Catatan</th>
+                                            <th
+                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                Tanggal</th>
+                                            <th class="text-secondary opacity-7"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach (getJournalByUserId($_SESSION['user']['id']) as $d): ?>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div>
+                                                        <img src="/assets/img/team-2.jpg" class="avatar avatar-sm me-3"
+                                                            alt="user1">
+                                                    </div>
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm"><?= $d['student_name'] ?></h6>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p class="text-xs font-weight-bold mb-0"><?= $d['job'] ?></p>
+                                            </td>
+                                            <td class="align-middle text-center text-sm">
+                                                <p class="text-xs font-weight-bold mb-0"><?= $d['note'] ?></p>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <span
+                                                    class="text-secondary text-xs font-weight-bold"><?= $d['date'] ?></span>
+                                            </td>
+                                            <td class="align-middle">
+                                                <a href="/controller/journalController.php?action=delete&id=<?= $d['id'] ?>"
+                                                    class="text-secondary font-weight-bold text-xs"
+                                                    data-toggle="tooltip" data-original-title="Edit user">
+                                                    Hapus
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <footer class=" footer pt-3 ">
-                <div class=" container-fluid">
+            <footer class="footer pt-3  ">
+                <div class="container-fluid">
                     <div class="row align-items-center justify-content-lg-between">
                         <div class="col-lg-6 mb-lg-0 mb-4">
                             <div class="copyright text-center text-sm text-muted text-lg-start">
@@ -146,8 +178,7 @@ include '../inc/siswaMiddleware.php';
                             <ul class="nav nav-footer justify-content-center justify-content-lg-end">
                                 <li class="nav-item">
                                     <a href="https://www.creative-tim.com" class="nav-link text-muted"
-                                        target="_blank">Creative
-                                        Tim</a>
+                                        target="_blank">Creative Tim</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted"
@@ -258,11 +289,11 @@ include '../inc/siswaMiddleware.php';
         </div>
     </div>
     <!--   Core JS Files   -->
-    <script src="./assets/js/core/popper.min.js"></script>
-    <script src="./assets/js/core/bootstrap.min.js"></script>
-    <script src="./assets/js/plugins/perfect-scrollbar.min.js"></script>
-    <script src="./assets/js/plugins/smooth-scrollbar.min.js"></script>
-    <script src="./assets/js/plugins/chartjs.min.js"></script>
+    <script src="/assets/js/core/popper.min.js"></script>
+    <script src="/assets/js/core/bootstrap.min.js"></script>
+    <script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="/assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="/assets/js/plugins/chartjs.min.js"></script>
     <script>
     var ctx1 = document.getElementById("chart-line").getContext("2d");
 
@@ -358,7 +389,7 @@ include '../inc/siswaMiddleware.php';
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="./assets/js/argon-dashboard.min.js?v=2.0.4"></script>
+    <script src="/assets/js/argon-dashboard.min.js?v=2.0.4"></script>
 </body>
 
 </html>

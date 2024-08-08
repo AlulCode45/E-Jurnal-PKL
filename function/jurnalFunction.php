@@ -65,3 +65,15 @@ function countJournalThisYear()
     $data = mysqli_fetch_assoc($query);
     return $data['total'];
 }
+
+function getJournalByUserId($id)
+{
+    global $connectDb;
+    $query = "SELECT *, students.name as student_name, devision.name as devision_name, journal.id as id FROM journal LEFT JOIN students ON journal.student_id = students.id LEFT JOIN devision ON students.devision_id = devision.id WHERE journal.student_id = $id";
+    $query = mysqli_query($connectDb, $query);
+    $journalData = [];
+    while ($d = mysqli_fetch_assoc($query)) {
+        $journalData[] = $d;
+    }
+    return $journalData;
+}

@@ -12,7 +12,7 @@ if ($params == 'add') {
     $date = $_POST['date'];
     $result = addJournal($student_id, $job, $note, $date);
     if ($result) {
-        header('Location: /dashboard/kelola-jurnal.php?status=success&message=Jurnal berhasil ditambahkan');
+        header('Location: /siswa/kelola-jurnal.php?status=success&message=Jurnal berhasil ditambahkan');
     } else {
         echo "Gagal menambahkan data";
     }
@@ -20,7 +20,11 @@ if ($params == 'add') {
     $id = $_GET['id'];
     $result = deleteJournal($id);
     if ($result) {
-        header('Location: /dashboard/kelola-jurnal.php?status=success&message=Jurnal berhasil dihapus');
+        if ($_SESSION['role'] == 'administrator') {
+            header('Location: /dashboard/kelola-jurnal.php?status=success&message=Jurnal berhasil dihapus');
+        } else {
+            header('Location: /siswa/kelola-jurnal.php?status=success&message=Jurnal berhasil dihapus');
+        }
     } else {
         echo "Gagal menghapus data";
     }
@@ -39,4 +43,19 @@ if ($params == 'add') {
 } elseif ($params == 'get') {
     $data = getJournal();
     echo json_encode($data);
+} elseif ($params == 'countToday') {
+    $data = countJournalToday();
+    echo json_encode($data);
+} elseif ($params == 'countMonth') {
+    $data = countJournalThisMonth();
+    echo json_encode($data);
+} elseif ($params == 'countYear') {
+    $data = countJournalThisYear();
+    echo json_encode($data);
+} else if ($params == 'getByUser') {
+    $student_id = $_GET['student_id'];
+    $data = getJournalByUserId($student_id);
+    echo json_encode($data);
+} else {
+    echo "404 Not Found";
 }
