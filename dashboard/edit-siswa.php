@@ -1,17 +1,14 @@
 <?php
 require_once ('../inc/config.php');
-require_once ('../function/sekolahFunction.php');
 require_once ('../function/siswaFunction.php');
-
+require_once ('../function/devisiFunction.php');
+require_once ('../function/sekolahFunction.php');
 include '../inc/middleware.php';
 
-$params = $_GET['id'] ?? '';
-if ($params == '') {
-    header('Location: /dashboard/kelola-sekolah.php');
-    exit;
+$student = getStudentById($_GET['id']);
+if (!isset($student)) {
+    header('Location: /dashboard/kelola-student.php');
 }
-$sekolah = getSchoolById($params);
-$siswa = getStudent();
 ?>
 
 <!DOCTYPE html>
@@ -90,26 +87,47 @@ $siswa = getStudent();
             <div class="row">
                 <div class="col-12">
                     <div class="card mb-4">
-                        <form action="/controller/schoolController.php?action=update" method="post">
+                        <form action="/controller/siswaController.php?action=update" method="post">
                             <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-                                <h6>Data Sekolah</h6>
+                                <h6>Data Devisi</h6>
                                 <button class="btn btn-primary" type="submit">Simpan</button>
                             </div>
                             <div class="card-body px-3 pt-0 pb-2">
-                                <input type="hidden" name="id" value="<?= $params ?>">
+                                <input type="hidden" name="id" value="<?= $student['id'] ?>">
                                 <div class="row">
-                                    <div class="col-6">
-                                        <div class="form-group">
-                                            <label for="nama">Nama Sekolah</label>
+                                    <div class="col-md-6">
+                                        <div class="form-group
+                                                                        ">
+                                            <label for="name">Nama Siswa</label>
                                             <input type="text" class="form-control" id="name" name="name"
-                                                value="<?= $sekolah['school_name'] ?>">
+                                                value="<?= $student['name'] ?>">
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-md-6">
+                                        <div class="form-group
+                                                                        ">
+                                            <label for="devision_id">Divisi</label>
+                                            <select class="form-control" id="devision_id" name="devision_id">
+                                                <?php foreach (getDevisi() as $devision): ?>
+                                                    <option value="<?= $devision['id'] ?>"
+                                                        <?= $devision['id'] == $student['devision_id'] ? 'selected' : '' ?>>
+                                                        <?= $devision['devision_name'] ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="idHead">Kabupaten</label>
-                                            <input type="text" class="form-control" id="regency" name="regency"
-                                                value="<?= $sekolah['regency'] ?>">
+                                            <label for="school_id">Sekolah</label>
+                                            <select class="form-control" id="school_id" name="school_id">
+                                                <?php foreach (getSchool() as $school): ?>
+                                                    <option value="<?= $school['id'] ?>"
+                                                        <?= $school['id'] == $student['school_id'] ? 'selected' : '' ?>>
+                                                        <?= $school['school_name'] ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -125,7 +143,7 @@ $siswa = getStudent();
                             <div class="copyright text-center text-sm text-muted text-lg-start">
                                 ©
                                 <script>
-                                document.write(new Date().getFullYear())
+                                    document.write(new Date().getFullYear())
                                 </script>,
                                 made with <i class="fa fa-heart"></i> by
                                 <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative
@@ -254,96 +272,96 @@ $siswa = getStudent();
     <script src="/assets/js/plugins/smooth-scrollbar.min.js"></script>
     <script src="/assets/js/plugins/chartjs.min.js"></script>
     <script>
-    var ctx1 = document.getElementById("chart-line").getContext("2d");
+        var ctx1 = document.getElementById("chart-line").getContext("2d");
 
-    var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
+        var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
 
-    gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
-    gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
-    gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
-    new Chart(ctx1, {
-        type: "line",
-        data: {
-            labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-            datasets: [{
-                label: "Mobile apps",
-                tension: 0.4,
-                borderWidth: 0,
-                pointRadius: 0,
-                borderColor: "#5e72e4",
-                backgroundColor: gradientStroke1,
-                borderWidth: 3,
-                fill: true,
-                data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-                maxBarThickness: 6
+        gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
+        gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
+        gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
+        new Chart(ctx1, {
+            type: "line",
+            data: {
+                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                datasets: [{
+                    label: "Mobile apps",
+                    tension: 0.4,
+                    borderWidth: 0,
+                    pointRadius: 0,
+                    borderColor: "#5e72e4",
+                    backgroundColor: gradientStroke1,
+                    borderWidth: 3,
+                    fill: true,
+                    data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+                    maxBarThickness: 6
 
-            }],
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false,
-                }
+                }],
             },
-            interaction: {
-                intersect: false,
-                mode: 'index',
-            },
-            scales: {
-                y: {
-                    grid: {
-                        drawBorder: false,
-                        display: true,
-                        drawOnChartArea: true,
-                        drawTicks: false,
-                        borderDash: [5, 5]
-                    },
-                    ticks: {
-                        display: true,
-                        padding: 10,
-                        color: '#fbfbfb',
-                        font: {
-                            size: 11,
-                            family: "Open Sans",
-                            style: 'normal',
-                            lineHeight: 2
-                        },
-                    }
-                },
-                x: {
-                    grid: {
-                        drawBorder: false,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
                         display: false,
-                        drawOnChartArea: false,
-                        drawTicks: false,
-                        borderDash: [5, 5]
-                    },
-                    ticks: {
-                        display: true,
-                        color: '#ccc',
-                        padding: 20,
-                        font: {
-                            size: 11,
-                            family: "Open Sans",
-                            style: 'normal',
-                            lineHeight: 2
-                        },
                     }
                 },
+                interaction: {
+                    intersect: false,
+                    mode: 'index',
+                },
+                scales: {
+                    y: {
+                        grid: {
+                            drawBorder: false,
+                            display: true,
+                            drawOnChartArea: true,
+                            drawTicks: false,
+                            borderDash: [5, 5]
+                        },
+                        ticks: {
+                            display: true,
+                            padding: 10,
+                            color: '#fbfbfb',
+                            font: {
+                                size: 11,
+                                family: "Open Sans",
+                                style: 'normal',
+                                lineHeight: 2
+                            },
+                        }
+                    },
+                    x: {
+                        grid: {
+                            drawBorder: false,
+                            display: false,
+                            drawOnChartArea: false,
+                            drawTicks: false,
+                            borderDash: [5, 5]
+                        },
+                        ticks: {
+                            display: true,
+                            color: '#ccc',
+                            padding: 20,
+                            font: {
+                                size: 11,
+                                family: "Open Sans",
+                                style: 'normal',
+                                lineHeight: 2
+                            },
+                        }
+                    },
+                },
             },
-        },
-    });
+        });
     </script>
     <script>
-    var win = navigator.platform.indexOf('Win') > -1;
-    if (win && document.querySelector('#sidenav-scrollbar')) {
-        var options = {
-            damping: '0.5'
+        var win = navigator.platform.indexOf('Win') > -1;
+        if (win && document.querySelector('#sidenav-scrollbar')) {
+            var options = {
+                damping: '0.5'
+            }
+            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
         }
-        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-    }
     </script>
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>

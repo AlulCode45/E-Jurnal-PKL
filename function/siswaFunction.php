@@ -1,41 +1,77 @@
 <?php
 
-require_once('../inc/config.php');
-function getSiswa(){
+require_once ('../inc/config.php');
+
+
+function addStudent($name, $devision_id, $school_id)
+{
     global $connectDb;
-    $data = mysqli_query($connectDb, "SELECT * FROM students");
-    $siswa = [];
-    while ($d = mysqli_fetch_assoc($data)) {
-        $siswa[] = $d;
-    }
-    return $siswa;
+    $data = mysqli_query($connectDb, "INSERT INTO students (name, devision_id, school_id) VALUES ('$name', '$devision_id', '$school_id')");
+    return $data;
 }
 
-function deleteSiswa($id)
+function getStudent()
+{
+    global $connectDb;
+    $data = mysqli_query($connectDb, "SELECT *, students.name AS student_name, schools.name AS school_name, students.id as id FROM students LEFT JOIN devision ON devision.id = students.devision_id LEFT JOIN schools ON schools.id = students.school_id");
+    $students = [];
+    while ($std = mysqli_fetch_assoc($data)) {
+        $students[] = $std;
+    }
+    return $students;
+}
+
+function deleteStudent($id)
 {
     global $connectDb;
     $data = mysqli_query($connectDb, "DELETE FROM students WHERE id = $id");
     return $data;
 }
 
-function addSiswa($nama, $nis, $kelas, $alamat)
+function getStudentById($id)
 {
     global $connectDb;
-    $data = mysqli_query($connectDb, "INSERT INTO students (name,nis,class,address) VALUES ('$nama','$nis','$kelas','$alamat')");
+    $data = mysqli_query($connectDb, "SELECT *, students.name AS student_name FROM students WHERE id = $id LIMIT 1");
+    $std = mysqli_fetch_assoc($data);
+    return $std;
+}
+
+function updateStudent($name, $devision_id, $school_id, $id)
+{
+    global $connectDb;
+    $data = mysqli_query($connectDb, "UPDATE students SET name = '$name', devision_id = '$devision_id', school_id = '$school_id' WHERE id = $id");
     return $data;
 }
 
-function updateSiswa($nama, $nis, $kelas, $alamat, $id)
+function getStudentByDevision($devision_id)
 {
     global $connectDb;
-    $data = mysqli_query($connectDb, "UPDATE students SET name = '$nama', nis = '$nis', class = '$kelas', address = '$alamat' WHERE id = $id");
-    return $data;
+    $data = mysqli_query($connectDb, "SELECT *, students.name AS student_name FROM students WHERE devision_id = $devision_id");
+    $students = [];
+    while ($std = mysqli_fetch_assoc($data)) {
+        $students[] = $std;
+    }
+    return $students;
 }
 
-function getSiswaById($id)
+function getStudentBySchool($school_id)
 {
     global $connectDb;
-    $data = mysqli_query($connectDb, "SELECT * FROM students WHERE id = $id");
-    $siswa = mysqli_fetch_assoc($data);
-    return $siswa;
+    $data = mysqli_query($connectDb, "SELECT *, students.name AS student_name FROM students WHERE school_id = $school_id");
+    $students = [];
+    while ($std = mysqli_fetch_assoc($data)) {
+        $students[] = $std;
+    }
+    return $students;
+}
+
+function getStudentByDevisionAndSchool($devision_id, $school_id)
+{
+    global $connectDb;
+    $data = mysqli_query($connectDb, "SELECT *, students.name AS student_name FROM students WHERE devision_id = $devision_id AND school_id = $school_id");
+    $students = [];
+    while ($std = mysqli_fetch_assoc($data)) {
+        $students[] = $std;
+    }
+    return $students;
 }
