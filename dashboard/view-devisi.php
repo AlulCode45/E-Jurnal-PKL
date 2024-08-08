@@ -138,17 +138,17 @@ if (!isset($devisi['name'])) {
                                                 <p class="text-xs font-weight-bold mb-0"><?= $d['school_name'] ?></p>
                                             </td>
                                             <td class="align-middle">
-                                                <a href="javascript:;"
+                                                <a href="/dashboard/view-siswa.php?id=<?= $d['id'] ?>"
                                                     class="text-secondary font-weight-bold text-xs ms-2"
                                                     data-toggle="tooltip" data-original-title="Edit user">
                                                     View
                                                 </a>
-                                                <a href="/dashboard/edit-devisi.php?id=<?= $d['devision_id'] ?>"
+                                                <a href="/dashboard/edit-siswa.php?id=<?= $d['id'] ?>"
                                                     class="text-secondary font-weight-bold text-xs ms-2"
                                                     data-toggle="tooltip" data-original-title="Edit user">
                                                     Edit
                                                 </a>
-                                                <a href="/controller/devisiController.php?id=<?= $d['devision_id'] ?>&action=delete"
+                                                <a href="/controller/siswaController.php?id=<?= $d['id'] ?>&action=delete"
                                                     class="text-secondary font-weight-bold text-xs ms-2"
                                                     data-toggle="tooltip" data-original-title="Edit user">
                                                     Hapus

@@ -4,7 +4,7 @@ require_once ('../inc/config.php');
 function getDevisi()
 {
     global $connectDb;
-    $data = mysqli_query($connectDb, "SELECT  *,students.id AS student_id, students.name AS student_name, devision.name AS devision_name, devision.id AS devision_id, COUNT(students.id) AS jumlah_student FROM devision LEFT JOIN students ON devision.head_on_devision = students.id GROUP BY devision.id");
+    $data = mysqli_query($connectDb, "SELECT  *,students.id AS student_id, students.name AS student_name, devision.name AS devision_name, devision.id AS devision_id, COUNT(students.id) AS jumlah_student, students.id as student_id FROM devision LEFT JOIN students ON devision.head_on_devision = students.id GROUP BY devision.id");
     $devisi = [];
     while ($d = mysqli_fetch_assoc($data)) {
         $devisi[] = $d;
