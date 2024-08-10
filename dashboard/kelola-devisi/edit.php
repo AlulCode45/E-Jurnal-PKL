@@ -1,8 +1,8 @@
 <?php
 require_once ('../../inc/config.php');
-// require_once('../../function/devisiFunction.php');
+require_once ('../../function/devisiFunction.php');
 
-include '../../inc/middleware.php';
+// include '../../inc/middleware.php';
 
 // $params = $_GET['id'];
 ?>
@@ -114,9 +114,7 @@ include '../../inc/middleware.php';
                                     <label for="example-text-input" class="form-control-label">Ketua Devisi</label>
                                     <select id="" class="form-control" name="idHead">
                                         <option value="">Pilih Ketua</option>
-                                        <?php foreach (getSiswa() as $siswa): ?>
-                                            <option value="<?= $siswa['id'] ?>"><?= $siswa['name'] ?></option>
-                                        <?php endforeach ?>
+
                                     </select>
                                 </div>
                             </div>
