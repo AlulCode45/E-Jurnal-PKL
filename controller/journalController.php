@@ -1,10 +1,10 @@
 <?php
 
-
 require_once ('../inc/config.php');
 require_once ('../function/jurnalFunction.php');
 
 $params = $_GET['action'];
+
 if ($params == 'add') {
     $student_id = $_POST['student_id'];
     $job = $_POST['job'];
@@ -17,6 +17,16 @@ if ($params == 'add') {
         echo "Gagal menambahkan data";
     }
 } elseif ($params == 'delete') {
+    $id = $_GET['id'];
+    echo "<script>
+        var confirmDelete = confirm('Apakah Anda yakin ingin menghapus jurnal ini?');
+        if (confirmDelete) {
+            window.location.href = '/controller/journalController.php?action=confirm_delete&id=$id';
+        } else {
+            window.location.href = '/siswa/kelola-jurnal.php';
+        }
+    </script>";
+} elseif ($params == 'confirm_delete') {
     $id = $_GET['id'];
     $result = deleteJournal($id);
     if ($result) {
@@ -36,7 +46,7 @@ if ($params == 'add') {
     $date = $_POST['date'];
     $result = updateJournal($id, $student_id, $job, $note, $date);
     if ($result) {
-        header('Location: /dashboard/kelola-jurnal.php?status=success&message=Jurnal berhasil diupdate');
+        header('Location: /siswa/kelola-jurnal.php?status=success&message=Jurnal berhasil diupdate');
     } else {
         echo "Gagal mengupdate data";
     }

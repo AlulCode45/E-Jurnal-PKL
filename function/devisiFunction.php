@@ -35,7 +35,7 @@ function updateDevisi($id, $nama, $idHead)
 function getDevisiById($id)
 {
     global $connectDb;
-    $data = mysqli_query($connectDb, "SELECT * , devision.name AS devision_name, students.name as student_name, schools.name AS school_name FROM devision RIGHT JOIN students ON students.devision_id = devision.id RIGHT JOIN schools ON schools.id = students.school_id WHERE devision.id = $id");
+    $data = mysqli_query($connectDb, "SELECT * , devision.name AS devision_name, students.name as student_name, schools.name AS school_name FROM devision LEFT JOIN students ON students.devision_id = devision.id LEFT JOIN schools ON schools.id = students.school_id WHERE devision.id = $id");
     $getDevision = mysqli_fetch_assoc($data);
 
     $studentInDevision = [];
@@ -46,6 +46,7 @@ function getDevisiById($id)
         'id' => $id,
         'name' => $getDevision['devision_name'],
         'students' => $studentInDevision,
+        'head_on_devision' => $getDevision['head_on_devision']
     ];
     return $devisions;
 }

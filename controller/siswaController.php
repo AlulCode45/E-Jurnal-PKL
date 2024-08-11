@@ -5,22 +5,34 @@ require_once ('../function/siswaFunction.php');
 $urlParams = $_GET['action'];
 
 if ($urlParams == 'add') {
-    $name = $_POST['name'];
+    $name = $_POST['nama'];
     $devision_id = $_POST['devision_id'];
     $school_id = $_POST['school_id'];
-    $result = addStudent($name, $devision_id, $school_id);
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $result = addStudent($name, $devision_id, $school_id, $username, $password);
     if ($result) {
-        header('Location: /dashboard/kelola-siswa.php?status=success&message=Siswa add successfully');
+        header('Location: /dashboard/kelola-siswa.php?status=success&message=Siswa berhasil ditambahkan');
     } else {
-        header('Location: /dashboard/kelola-siswa.php?status=error&message=Failed to add siswa');
+        header('Location: /dashboard/kelola-siswa.php?status=error&message=Gagal menambahkan siswa');
     }
 } elseif ($urlParams == 'delete') {
     $id = $_GET['id'];
+    echo "<script>
+        var confirmDelete = confirm('Apakah Anda yakin ingin menghapus siswa ini?');
+        if (confirmDelete) {
+            window.location.href = '/controller/siswaController.php?action=confirm_delete&id=$id';
+        } else {
+            window.location.href = '/dashboard/kelola-siswa.php';
+        }
+    </script>";
+} elseif ($urlParams == 'confirm_delete') {
+    $id = $_GET['id'];
     $result = deleteStudent($id);
     if ($result) {
-        header('Location: /dashboard/kelola-siswa.php?status=success&message=Siswa delete successfully');
+        header('Location: /dashboard/kelola-siswa.php?status=success&message=Siswa berhasil dihapus');
     } else {
-        header('Location: /dashboard/kelola-siswa.php?status=error&message=Failed to delete siswa');
+        header('Location: /dashboard/kelola-siswa.php?status=error&message=Gagal menghapus siswa');
     }
 } elseif ($urlParams == 'update') {
     $id = $_POST['id'];
@@ -29,9 +41,9 @@ if ($urlParams == 'add') {
     $school_id = $_POST['school_id'];
     $result = updateStudent($name, $devision_id, $school_id, $id);
     if ($result) {
-        header('Location: /dashboard/kelola-siswa.php?status=success&message=Siswa edit successfully');
+        header('Location: /dashboard/kelola-siswa.php?status=success&message=Siswa berhasil diperbarui');
     } else {
-        header('Location: /dashboard/kelola-siswa.php?status=error&message=Failed to edit siswa');
+        header('Location: /dashboard/kelola-siswa.php?status=error&message=Gagal memperbarui siswa');
     }
 } elseif ($urlParams == 'get') {
     $data = getStudent();

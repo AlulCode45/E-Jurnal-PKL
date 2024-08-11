@@ -14,6 +14,16 @@ if ($urlParams == 'add') {
     }
 } else if ($urlParams == 'delete') {
     $id = $_GET['id'];
+    echo "<script>
+        var confirmDelete = confirm('Are you sure you want to delete this devisi?');
+        if (confirmDelete) {
+            window.location.href = '/controller/devisiController.php?action=confirm_delete&id=$id';
+        } else {
+            window.location.href = '/dashboard/kelola-devisi.php';
+        }
+    </script>";
+} else if ($urlParams == 'confirm_delete') {
+    $id = $_GET['id'];
     $result = deleteDevisi($id);
     if ($result) {
         header('Location: /dashboard/kelola-devisi.php?status=success&message=Devisi deleted successfully');

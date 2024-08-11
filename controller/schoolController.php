@@ -1,6 +1,5 @@
 <?php
 
-
 require_once ('../inc/config.php');
 require_once ('../function/sekolahFunction.php');
 
@@ -11,17 +10,27 @@ if ($urlParams == 'add') {
     $regency = $_POST['regency'];
     $result = addSchool($name, $regency);
     if ($result) {
-        header('Location: /dashboard/kelola-sekolah.php?status=success&message=Sekolah add successfully');
+        header('Location: /dashboard/kelola-sekolah.php?status=success&message=Sekolah berhasil ditambahkan');
     } else {
-        header('Location: /dashboard/kelola-sekolah.php?status=error&message=Failed to add sekolah');
+        header('Location: /dashboard/kelola-sekolah.php?status=error&message=Gagal menambahkan sekolah');
     }
 } elseif ($urlParams == 'delete') {
     $id = $_GET['id'];
+    echo "<script>
+        var confirmDelete = confirm('Apakah Anda yakin ingin menghapus sekolah ini?');
+        if (confirmDelete) {
+            window.location.href = '/controller/schoolController.php?action=confirm_delete&id=$id';
+        } else {
+            window.location.href = '/dashboard/kelola-sekolah.php';
+        }
+    </script>";
+} elseif ($urlParams == 'confirm_delete') {
+    $id = $_GET['id'];
     $result = deleteSchool($id);
     if ($result) {
-        header('Location: /dashboard/kelola-sekolah.php?status=success&message=Sekolah delete successfully');
+        header('Location: /dashboard/kelola-sekolah.php?status=success&message=Sekolah berhasil dihapus');
     } else {
-        header('Location: /dashboard/kelola-sekolah.php?status=error&message=Failed to delete sekolah');
+        header('Location: /dashboard/kelola-sekolah.php?status=error&message=Gagal menghapus sekolah');
     }
 } elseif ($urlParams == 'update') {
     $id = $_POST['id'];
@@ -29,9 +38,9 @@ if ($urlParams == 'add') {
     $regency = $_POST['regency'];
     $result = updateSchool($id, $name, $regency);
     if ($result) {
-        header('Location: /dashboard/kelola-sekolah.php?status=success&message=Sekolah edit successfully');
+        header('Location: /dashboard/kelola-sekolah.php?status=success&message=Sekolah berhasil diperbarui');
     } else {
-        header('Location: /dashboard/kelola-sekolah.php?status=error&message=Failed to edit sekolah');
+        header('Location: /dashboard/kelola-sekolah.php?status=error&message=Gagal memperbarui sekolah');
     }
 } elseif ($urlParams == 'get') {
     $data = getSchool();

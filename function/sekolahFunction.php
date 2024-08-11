@@ -4,7 +4,7 @@ require_once ('../inc/config.php');
 function addSchool($name, $regency)
 {
     global $connectDb;
-    $data = mysqli_query($connectDb, "INSERT INTO schools (name, regency) VALUES ('$name', '$regency') LEFT JOIN students ON students.school_id = schools.id");
+    $data = mysqli_query($connectDb, "INSERT INTO schools (name, regency) VALUES ('$name', '$regency')");
 
     return $data;
 }

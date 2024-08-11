@@ -3,10 +3,11 @@
 require_once ('../inc/config.php');
 
 
-function addStudent($name, $devision_id, $school_id)
+function addStudent($name, $devision_id, $school_id, $username, $password)
 {
     global $connectDb;
-    $data = mysqli_query($connectDb, "INSERT INTO students (name, devision_id, school_id) VALUES ('$name', '$devision_id', '$school_id')");
+    $password = password_hash($password, PASSWORD_DEFAULT);
+    $data = mysqli_query($connectDb, "INSERT INTO students (name, devision_id, school_id, username, password) VALUES ('$name', '$devision_id', '$school_id','$username' ,'$password')");
     return $data;
 }
 

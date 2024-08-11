@@ -1,6 +1,8 @@
 <?php
 require_once ('../inc/config.php');
 require_once ('../function/siswaFunction.php');
+require_once ('../function/sekolahFunction.php');
+require_once ('../function/devisiFunction.php');
 include '../inc/middleware.php';
 ?>
 
@@ -37,11 +39,7 @@ include '../inc/middleware.php';
             data-scroll="false">
             <div class="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white"
-                                href="javascript:;">Pages</a></li>
-                        <li class="breadcrumb-item text-sm text-white active" aria-current="page">Dashboard</li>
-                    </ol>
+
                     <h6 class="font-weight-bolder text-white mb-0">Dashboard</h6>
                 </nav>
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
@@ -162,13 +160,30 @@ include '../inc/middleware.php';
                                     <input class="form-control" type="text" placeholder="Nama siswa" name="nama">
                                 </div>
                                 <div class="form-group">
-                                    <label for="example-text-input" class="form-control-label">Ketua Siswa</label>
-                                    <select id="" class="form-control" name="idHead">
-                                        <option value="">Pilih Ketua</option>
-                                        <?php foreach (getStudent() as $siswa): ?>
-                                            <option value="<?= $siswa['id'] ?>"><?= $siswa['name'] ?></option>
+                                    <label for="example-text-input" class="form-control-label">Asal Sekolah</label>
+                                    <select id="" class="form-control" name="school_id">
+                                        <option value="">Pilih Sekolah</option>
+                                        <?php foreach (getSchool() as $sekolah): ?>
+                                            <option value="<?= $sekolah['id'] ?>"><?= $sekolah['school_name'] ?></option>
                                         <?php endforeach ?>
                                     </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="example-text-input" class="form-control-label">Devisi</label>
+                                    <select id="" class="form-control" name="devision_id">
+                                        <option value="">Pilih Devisi</option>
+                                        <?php foreach (getDevisi() as $devisi): ?>
+                                            <option value="<?= $devisi['id'] ?>"><?= $devisi['devision_name'] ?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="example-text-input" class="form-control-label">Username</label>
+                                    <input class="form-control" type="text" placeholder="Username" name="username">
+                                </div>
+                                <div class="form-group">
+                                    <label for="example-text-input" class="form-control-label">Password</label>
+                                    <input class="form-control" type="password" placeholder="Password" name="password">
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -195,26 +210,7 @@ include '../inc/middleware.php';
                                 for a better web.
                             </div>
                         </div>
-                        <div class="col-lg-6">
-                            <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                                <li class="nav-item">
-                                    <a href="https://www.creative-tim.com" class="nav-link text-muted"
-                                        target="_blank">Creative Tim</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted"
-                                        target="_blank">About Us</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="https://www.creative-tim.com/blog" class="nav-link text-muted"
-                                        target="_blank">Blog</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted"
-                                        target="_blank">License</a>
-                                </li>
-                            </ul>
-                        </div>
+
                     </div>
                 </div>
             </footer>

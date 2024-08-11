@@ -77,3 +77,12 @@ function getJournalByUserId($id)
     }
     return $journalData;
 }
+
+function getJournalById($id)
+{
+    global $connectDb;
+    $query = "SELECT *, students.name as student_name, devision.name as devision_name, journal.id as id FROM journal LEFT JOIN students ON journal.student_id = students.id LEFT JOIN devision ON students.devision_id = devision.id WHERE journal.id = $id";
+    $query = mysqli_query($connectDb, $query);
+    $journalData = mysqli_fetch_assoc($query);
+    return $journalData;
+}

@@ -1,15 +1,11 @@
 <?php
 require_once ('../inc/config.php');
-require_once ('../function/siswaFunction.php');
-require_once ('../function/devisiFunction.php');
-require_once ('../function/sekolahFunction.php');
-include '../inc/middleware.php';
+require_once ('../function/jurnalFunction.php');
+include '../inc/siswaMiddleware.php';
 
-$student = getStudentById($_GET['id']);
-if (!isset($student)) {
-    header('Location: /dashboard/kelola-student.php');
-}
+$jurnal = getJournalById($_GET['id']);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +32,7 @@ if (!isset($student)) {
 
 <body class="g-sidenav-show   bg-gray-100">
     <div class="min-height-300 bg-primary position-absolute w-100"></div>
-    <?php include '../template/sidebar.php' ?>
+    <?php include '../template/siswaSidebar.php' ?>
     <main class="main-content position-relative border-radius-lg ">
         <!-- Navbar -->
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur"
@@ -83,65 +79,52 @@ if (!isset($student)) {
             <div class="row">
                 <div class="col-12">
                     <div class="card mb-4">
-                        <form action="/controller/siswaController.php?action=update" method="post">
-                            <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-                                <h6>Data Devisi</h6>
-                                <button class="btn btn-primary" type="submit">Simpan</button>
-                            </div>
-                            <div class="card-body px-3 pt-0 pb-2">
-                                <input type="hidden" name="id" value="<?= $student['id'] ?>">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group
-                                                                        ">
-                                            <label for="name">Nama Siswa</label>
-                                            <input type="text" class="form-control" id="name" name="name"
-                                                value="<?= $student['name'] ?>">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group
-                                                                        ">
-                                            <label for="devision_id">Divisi</label>
-                                            <select class="form-control" id="devision_id" name="devision_id">
-                                                <?php foreach (getDevisi() as $devision): ?>
-                                                        <option value="<?= $devision['id'] ?>"
-                                                            <?= $devision['id'] == $student['devision_id'] ? 'selected' : '' ?>>
-                                                            <?= $devision['devision_name'] ?>
-                                                        </option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="school_id">Sekolah</label>
-                                            <select class="form-control" id="school_id" name="school_id">
-                                                <?php foreach (getSchool() as $school): ?>
-                                                        <option value="<?= $school['id'] ?>"
-                                                            <?= $school['id'] == $student['school_id'] ? 'selected' : '' ?>>
-                                                            <?= $school['school_name'] ?>
-                                                        </option>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </div>
-                                    </div>
+                        <div class="card-header pb-0">
+                            <h6>Data Jurnal</h6>
+                        </div>
+                        <div class="card-body px-3 pt-0 pb-2">
+                            <form action="/controller/journalController.php?action=update" method="post">
+                                <input type="hidden" name="student_id" value="<?= $_SESSION['user']['id'] ?>">
+                                <input type="hidden" name="id" value="<?= $jurnal['id'] ?>">
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Nama Siswa</label>
+                                    <input type="text" class="form-control" value="<?= $_SESSION['user']['name'] ?>"
+                                        readonly>
                                 </div>
-                            </div>
-                        </form>
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Pekerjaan</label>
+                                    <input type="text" class="form-control" name="job" id="exampleFormControlInput1"
+                                        placeholder="Pekerjaan" value="<?= $jurnal['job'] ?>">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Catatan</label>
+                                    <textarea class="form-control" name="note" id="exampleFormControlTextarea1"
+                                        rows="3"><?= $jurnal['note'] ?></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Tanggal</label>
+                                    <input type="date" class="form-control" name="date" id="exampleFormControlInput1"
+                                        value="<?= $jurnal['date'] ?>">
+                                </div>
+                                <button type="submit" class="btn bg-gradient-primary w-100 mt-4 mb-0">Tambah
+                                    Jurnal</button>`
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-            <footer class="footer pt-3  ">
-                <div class="container-fluid">
-                    <div class="row align-items-center justify-content-lg-between">
-                        <div class="col-lg-6 mb-lg-0 mb-4">
-                            © 2024, Muhammad Khoyron Ahlaqul Firdaus - @alulcode404_
-                        </div>
-                        
+        </div>
+
+        <footer class="footer pt-3  ">
+            <div class="container-fluid">
+                <div class="row align-items-center justify-content-lg-between">
+                    <div class="col-lg-6 mb-lg-0 mb-4">
+                        © 2024, Muhammad Khoyron Ahlaqul Firdaus - @alulcode404_
                     </div>
+
                 </div>
-            </footer>
+            </div>
+        </footer>
         </div>
     </main>
     <div class="fixed-plugin">
