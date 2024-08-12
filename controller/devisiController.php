@@ -8,7 +8,9 @@ if ($urlParams == 'add') {
     $nama = $_POST['nama'];
     $idHead = $_POST['idHead'];
     $result = addDevisi($nama, $idHead);
-    if ($result) {
+    if ($result === "exist") {
+        header('Location: /dashboard/kelola-devisi.php?status=error&message=Devisi already exist');
+    } else if ($result === true) {
         header('Location: /dashboard/kelola-devisi.php?status=success&message=Devisi added successfully');
     } else {
         header('Location: /dashboard/kelola-devisi.php?status=error&message=Failed to add devisi');

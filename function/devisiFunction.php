@@ -22,6 +22,12 @@ function deleteDevisi($id)
 function addDevisi($nama, $idHead)
 {
     global $connectDb;
+    //check if school already exist
+    $check = mysqli_query($connectDb, "SELECT * FROM devision WHERE name = '$nama'");
+    if (mysqli_num_rows($check) > 0) {
+        return "exist";
+    }
+    //insert school
     $data = mysqli_query($connectDb, "INSERT INTO devision (name,head_on_devision) VALUES ('$nama','$idHead')");
     return $data;
 }

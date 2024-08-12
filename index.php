@@ -49,7 +49,7 @@
                                         </div> -->
                                         <div class="text-center">
                                             <button type="submit"
-                                                class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Sign in</button>
+                                                class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Masuk </button>
                                         </div>
                                     </form>
                                 </div>
@@ -86,13 +86,13 @@
     <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
     <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
     <script>
-        var win = navigator.platform.indexOf('Win') > -1;
-        if (win && document.querySelector('#sidenav-scrollbar')) {
-            var options = {
-                damping: '0.5'
-            }
-            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+        var options = {
+            damping: '0.5'
         }
+        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
     </script>
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>

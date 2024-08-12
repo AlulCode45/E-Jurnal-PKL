@@ -10,7 +10,9 @@ if ($urlParams == 'add') {
     $name = $_POST['name'];
     $regency = $_POST['regency'];
     $result = addSchool($name, $regency);
-    if ($result) {
+    if ($result === "exist") {
+        header('Location: /dashboard/kelola-sekolah.php?status=error&message=Sekolah sudah ada');
+    } elseif ($result === true) {
         header('Location: /dashboard/kelola-sekolah.php?status=success&message=Sekolah berhasil ditambahkan');
     } else {
         header('Location: /dashboard/kelola-sekolah.php?status=error&message=Gagal menambahkan sekolah');

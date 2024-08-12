@@ -5,6 +5,12 @@ require_once ('../inc/config.php');
 function addSchool($name, $regency)
 {
     global $connectDb;
+    //check if school already exist
+    $check = mysqli_query($connectDb, "SELECT * FROM schools WHERE name = '$name'");
+    if (mysqli_num_rows($check) > 0) {
+        return "exist";
+    }
+    //insert school
     $data = mysqli_query($connectDb, "INSERT INTO schools (name, regency) VALUES ('$name', '$regency')");
 
     return $data;
@@ -74,4 +80,3 @@ function getSchoolByRegency($regency)
     }
     return $schools;
 }
-?>

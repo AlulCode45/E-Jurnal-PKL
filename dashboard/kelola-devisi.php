@@ -108,46 +108,46 @@ include '../inc/middleware.php';
                                         <?php
                                         error_reporting(0);
                                         foreach (getDevisi() as $d): ?>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex px-2 py-1">
-                                                        <div>
-                                                            <img src="/assets/img/team-2.jpg" class="avatar avatar-sm me-3"
-                                                                alt="user1">
-                                                        </div>
-                                                        <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-sm"><?= $d['devision_name'] ?></h6>
-                                                        </div>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div>
+                                                        <img src="/assets/img/team-2.jpg" class="avatar avatar-sm me-3"
+                                                            alt="user1">
                                                     </div>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-weight-bold mb-0"><?= $d['student_name'] ?></p>
-                                                    <!-- <p class="text-xs text-secondary mb-0">Organization</p> -->
-                                                </td>
-                                                <td class="align-middle text-center text-sm">
-                                                    <span class="badge badge-sm bg-gradient-success">
-                                                        <?= $d['jumlah_student'] ?>
-                                                    </span>
-                                                </td>
-                                                <td class="align-middle">
-                                                    <a href="/dashboard/view-devisi.php?id=<?= $d['devision_id'] ?>"
-                                                        class="text-secondary font-weight-bold text-xs ms-2"
-                                                        data-toggle="tooltip" data-original-title="Edit user">
-                                                        View
-                                                    </a>
-                                                    <a href="/dashboard/edit-devisi.php?id=<?= $d['devision_id'] ?>"
-                                                        class="text-secondary font-weight-bold text-xs ms-2"
-                                                        data-toggle="tooltip" data-original-title="Edit user">
-                                                        Edit
-                                                    </a>
-                                                    <a href="/controller/devisiController.php?id=<?= $d['devision_id'] ?>&action=delete"
-                                                        class="text-secondary font-weight-bold text-xs ms-2"
-                                                        data-toggle="tooltip" data-original-title="Edit user">
-                                                        Hapus
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <?php
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm"><?= $d['devision_name'] ?></h6>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <p class="text-xs font-weight-bold mb-0"><?= $d['student_name'] ?></p>
+                                                <!-- <p class="text-xs text-secondary mb-0">Organization</p> -->
+                                            </td>
+                                            <td class="align-middle text-center text-sm">
+                                                <span class="badge badge-sm bg-gradient-success">
+                                                    <?= $d['jumlah_student'] ?>
+                                                </span>
+                                            </td>
+                                            <td class="align-middle">
+                                                <a href="/dashboard/view-devisi.php?id=<?= $d['devision_id'] ?>"
+                                                    class="text-secondary font-weight-bold text-xs ms-2"
+                                                    data-toggle="tooltip" data-original-title="Edit user">
+                                                    View
+                                                </a>
+                                                <a href="/dashboard/edit-devisi.php?id=<?= $d['devision_id'] ?>"
+                                                    class="text-secondary font-weight-bold text-xs ms-2"
+                                                    data-toggle="tooltip" data-original-title="Edit user">
+                                                    Edit
+                                                </a>
+                                                <a href="/controller/devisiController.php?id=<?= $d['devision_id'] ?>&action=delete"
+                                                    class="text-secondary font-weight-bold text-xs ms-2"
+                                                    data-toggle="tooltip" data-original-title="Edit user">
+                                                    Hapus
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <?php
                                             error_reporting(0);
                                         endforeach ?>
                                     </tbody>
@@ -181,8 +181,8 @@ include '../inc/middleware.php';
                                         <?php
                                         error_reporting(0);
                                         foreach (getStudent() as $siswa): ?>
-                                            <option value="<?= $siswa['id'] ?>"><?= $siswa['name'] ?></option>
-                                            <?php
+                                        <option value="<?= $siswa['id'] ?>"><?= $siswa['student_name'] ?></option>
+                                        <?php
                                             error_reporting(0);
                                         endforeach ?>
                                     </select>
@@ -305,96 +305,96 @@ include '../inc/middleware.php';
     <script src="/assets/js/plugins/smooth-scrollbar.min.js"></script>
     <script src="/assets/js/plugins/chartjs.min.js"></script>
     <script>
-        var ctx1 = document.getElementById("chart-line").getContext("2d");
+    var ctx1 = document.getElementById("chart-line").getContext("2d");
 
-        var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
+    var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
 
-        gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
-        gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
-        gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
-        new Chart(ctx1, {
-            type: "line",
-            data: {
-                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{
-                    label: "Mobile apps",
-                    tension: 0.4,
-                    borderWidth: 0,
-                    pointRadius: 0,
-                    borderColor: "#5e72e4",
-                    backgroundColor: gradientStroke1,
-                    borderWidth: 3,
-                    fill: true,
-                    data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-                    maxBarThickness: 6
+    gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
+    gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
+    gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
+    new Chart(ctx1, {
+        type: "line",
+        data: {
+            labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            datasets: [{
+                label: "Mobile apps",
+                tension: 0.4,
+                borderWidth: 0,
+                pointRadius: 0,
+                borderColor: "#5e72e4",
+                backgroundColor: gradientStroke1,
+                borderWidth: 3,
+                fill: true,
+                data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+                maxBarThickness: 6
 
-                }],
+            }],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false,
+                }
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false,
+            interaction: {
+                intersect: false,
+                mode: 'index',
+            },
+            scales: {
+                y: {
+                    grid: {
+                        drawBorder: false,
+                        display: true,
+                        drawOnChartArea: true,
+                        drawTicks: false,
+                        borderDash: [5, 5]
+                    },
+                    ticks: {
+                        display: true,
+                        padding: 10,
+                        color: '#fbfbfb',
+                        font: {
+                            size: 11,
+                            family: "Open Sans",
+                            style: 'normal',
+                            lineHeight: 2
+                        },
                     }
                 },
-                interaction: {
-                    intersect: false,
-                    mode: 'index',
-                },
-                scales: {
-                    y: {
-                        grid: {
-                            drawBorder: false,
-                            display: true,
-                            drawOnChartArea: true,
-                            drawTicks: false,
-                            borderDash: [5, 5]
-                        },
-                        ticks: {
-                            display: true,
-                            padding: 10,
-                            color: '#fbfbfb',
-                            font: {
-                                size: 11,
-                                family: "Open Sans",
-                                style: 'normal',
-                                lineHeight: 2
-                            },
-                        }
+                x: {
+                    grid: {
+                        drawBorder: false,
+                        display: false,
+                        drawOnChartArea: false,
+                        drawTicks: false,
+                        borderDash: [5, 5]
                     },
-                    x: {
-                        grid: {
-                            drawBorder: false,
-                            display: false,
-                            drawOnChartArea: false,
-                            drawTicks: false,
-                            borderDash: [5, 5]
+                    ticks: {
+                        display: true,
+                        color: '#ccc',
+                        padding: 20,
+                        font: {
+                            size: 11,
+                            family: "Open Sans",
+                            style: 'normal',
+                            lineHeight: 2
                         },
-                        ticks: {
-                            display: true,
-                            color: '#ccc',
-                            padding: 20,
-                            font: {
-                                size: 11,
-                                family: "Open Sans",
-                                style: 'normal',
-                                lineHeight: 2
-                            },
-                        }
-                    },
+                    }
                 },
             },
-        });
+        },
+    });
     </script>
     <script>
-        var win = navigator.platform.indexOf('Win') > -1;
-        if (win && document.querySelector('#sidenav-scrollbar')) {
-            var options = {
-                damping: '0.5'
-            }
-            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+        var options = {
+            damping: '0.5'
         }
+        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
     </script>
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
