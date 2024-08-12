@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 require_once ('../inc/config.php');
 require_once ('../function/devisiFunction.php');
 require_once ('../function/siswaFunction.php');
@@ -31,7 +32,9 @@ include '../inc/middleware.php';
 
 <body class="g-sidenav-show   bg-gray-100">
     <div class="min-height-300 bg-primary position-absolute w-100"></div>
-    <?php include '../template/sidebar.php' ?>
+    <?php
+    error_reporting(0);
+    include '../template/sidebar.php' ?>
     <main class="main-content position-relative border-radius-lg ">
         <!-- Navbar -->
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur"
@@ -102,7 +105,9 @@ include '../inc/middleware.php';
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach (getDevisi() as $d): ?>
+                                        <?php
+                                        error_reporting(0);
+                                        foreach (getDevisi() as $d): ?>
                                             <tr>
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
@@ -142,7 +147,9 @@ include '../inc/middleware.php';
                                                     </a>
                                                 </td>
                                             </tr>
-                                        <?php endforeach ?>
+                                            <?php
+                                            error_reporting(0);
+                                        endforeach ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -171,9 +178,13 @@ include '../inc/middleware.php';
                                     <label for="example-text-input" class="form-control-label">Ketua Devisi</label>
                                     <select id="" class="form-control" name="idHead">
                                         <option value="">Pilih Ketua</option>
-                                        <?php foreach (getStudent() as $siswa): ?>
+                                        <?php
+                                        error_reporting(0);
+                                        foreach (getStudent() as $siswa): ?>
                                             <option value="<?= $siswa['id'] ?>"><?= $siswa['name'] ?></option>
-                                        <?php endforeach ?>
+                                            <?php
+                                            error_reporting(0);
+                                        endforeach ?>
                                     </select>
                                 </div>
                             </div>

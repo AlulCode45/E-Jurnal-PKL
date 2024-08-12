@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 require_once ('../inc/config.php');
 require_once ('../function/jurnalFunction.php');
 require_once ('../function/siswaFunction.php');
@@ -31,7 +32,9 @@ include '../inc/siswaMiddleware.php';
 
 <body class="g-sidenav-show   bg-gray-100">
     <div class="min-height-300 bg-primary position-absolute w-100"></div>
-    <?php include '../template/siswaSidebar.php' ?>
+    <?php
+    error_reporting(0);
+    include '../template/siswaSidebar.php' ?>
     <main class="main-content position-relative border-radius-lg ">
         <!-- Navbar -->
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur"

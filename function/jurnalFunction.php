@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 require_once ('../inc/config.php');
 function addJournal($student_id, $job, $note, $date)
 {

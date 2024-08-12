@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 require_once('../inc/config.php');
 require_once('../function/devisiFunction.php');
 require_once('../function/siswaFunction.php');
@@ -39,7 +40,8 @@ $siswa = getStudent();
 
 <body class="g-sidenav-show   bg-gray-100">
     <div class="min-height-300 bg-primary position-absolute w-100"></div>
-    <?php include '../template/sidebar.php' ?>
+    <?php
+error_reporting(0); include '../template/sidebar.php' ?>
     <main class="main-content position-relative border-radius-lg ">
         <!-- Navbar -->
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur"
@@ -106,11 +108,13 @@ $siswa = getStudent();
                                             <label for="idHead">Kepala Devisi</label>
                                             <select class="form-control" id="idHead" name="idHead">
                                                 <option value="">Pilih Kepala Devisi</option>
-                                                <?php foreach ($siswa as $s) : ?>
+                                                <?php
+error_reporting(0); foreach ($siswa as $s) : ?>
                                                 <option value="<?= $s['id'] ?>"
                                                     <?= $s['id'] == $devisi['head_on_devision'] ? 'selected' : '' ?>>
                                                     <?= $s['student_name'] ?></option>
-                                                <?php endforeach; ?>
+                                                <?php
+error_reporting(0); endforeach; ?>
                                             </select>
                                         </div>
                                     </div>

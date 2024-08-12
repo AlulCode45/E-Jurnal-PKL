@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 require_once ('../inc/config.php');
 require_once ('../function/siswaFunction.php');
 require_once ('../function/devisiFunction.php');
@@ -36,7 +37,9 @@ if (!isset($student)) {
 
 <body class="g-sidenav-show   bg-gray-100">
     <div class="min-height-300 bg-primary position-absolute w-100"></div>
-    <?php include '../template/sidebar.php' ?>
+    <?php
+    error_reporting(0);
+    include '../template/sidebar.php' ?>
     <main class="main-content position-relative border-radius-lg ">
         <!-- Navbar -->
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur"
@@ -104,12 +107,16 @@ if (!isset($student)) {
                                                                         ">
                                             <label for="devision_id">Divisi</label>
                                             <select class="form-control" id="devision_id" name="devision_id">
-                                                <?php foreach (getDevisi() as $devision): ?>
-                                                        <option value="<?= $devision['id'] ?>"
-                                                            <?= $devision['id'] == $student['devision_id'] ? 'selected' : '' ?>>
-                                                            <?= $devision['devision_name'] ?>
-                                                        </option>
-                                                <?php endforeach; ?>
+                                                <?php
+                                                error_reporting(0);
+                                                foreach (getDevisi() as $devision): ?>
+                                                    <option value="<?= $devision['id'] ?>"
+                                                        <?= $devision['id'] == $student['devision_id'] ? 'selected' : '' ?>>
+                                                        <?= $devision['devision_name'] ?>
+                                                    </option>
+                                                    <?php
+                                                    error_reporting(0);
+                                                endforeach; ?>
                                             </select>
                                         </div>
                                     </div>
@@ -117,12 +124,16 @@ if (!isset($student)) {
                                         <div class="form-group">
                                             <label for="school_id">Sekolah</label>
                                             <select class="form-control" id="school_id" name="school_id">
-                                                <?php foreach (getSchool() as $school): ?>
-                                                        <option value="<?= $school['id'] ?>"
-                                                            <?= $school['id'] == $student['school_id'] ? 'selected' : '' ?>>
-                                                            <?= $school['school_name'] ?>
-                                                        </option>
-                                                <?php endforeach; ?>
+                                                <?php
+                                                error_reporting(0);
+                                                foreach (getSchool() as $school): ?>
+                                                    <option value="<?= $school['id'] ?>"
+                                                        <?= $school['id'] == $student['school_id'] ? 'selected' : '' ?>>
+                                                        <?= $school['school_name'] ?>
+                                                    </option>
+                                                    <?php
+                                                    error_reporting(0);
+                                                endforeach; ?>
                                             </select>
                                         </div>
                                     </div>
@@ -138,7 +149,7 @@ if (!isset($student)) {
                         <div class="col-lg-6 mb-lg-0 mb-4">
                             © 2024, Muhammad Khoyron Ahlaqul Firdaus - @alulcode404_
                         </div>
-                        
+
                     </div>
                 </div>
             </footer>

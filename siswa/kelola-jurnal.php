@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 require_once ('../inc/config.php');
 require_once ('../function/jurnalFunction.php');
 include '../inc/siswaMiddleware.php';
@@ -31,7 +32,9 @@ include '../inc/siswaMiddleware.php';
 
 <body class="g-sidenav-show   bg-gray-100">
     <div class="min-height-300 bg-primary position-absolute w-100"></div>
-    <?php include '../template/siswaSidebar.php' ?>
+    <?php
+    error_reporting(0);
+    include '../template/siswaSidebar.php' ?>
     <main class="main-content position-relative border-radius-lg ">
         <!-- Navbar -->
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur"
@@ -102,7 +105,9 @@ include '../inc/siswaMiddleware.php';
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach (getJournalByUserId($_SESSION['user']['id']) as $d): ?>
+                                        <?php
+                                        error_reporting(0);
+                                        foreach (getJournalByUserId($_SESSION['user']['id']) as $d): ?>
                                             <tr>
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
@@ -139,7 +144,9 @@ include '../inc/siswaMiddleware.php';
 
                                                 </td>
                                             </tr>
-                                        <?php endforeach; ?>
+                                            <?php
+                                            error_reporting(0);
+                                        endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>

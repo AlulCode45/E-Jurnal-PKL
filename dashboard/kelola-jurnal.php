@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 require_once ('../inc/config.php');
 require_once ('../function/jurnalFunction.php');
 include '../inc/middleware.php';
@@ -30,7 +31,9 @@ include '../inc/middleware.php';
 
 <body class="g-sidenav-show   bg-gray-100">
     <div class="min-height-300 bg-primary position-absolute w-100"></div>
-    <?php include '../template/sidebar.php' ?>
+    <?php
+    error_reporting(0);
+    include '../template/sidebar.php' ?>
     <main class="main-content position-relative border-radius-lg ">
         <!-- Navbar -->
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur"
@@ -101,38 +104,42 @@ include '../inc/middleware.php';
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach (getJournal() as $d): ?>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex px-2 py-1">
-                                                            <div>
-                                                                <img src="/assets/img/team-2.jpg" class="avatar avatar-sm me-3"
-                                                                    alt="user1">
-                                                            </div>
-                                                            <div class="d-flex flex-column justify-content-center">
-                                                                <h6 class="mb-0 text-sm"><?= $d['student_name'] ?></h6>
-                                                            </div>
+                                        <?php
+                                        error_reporting(0);
+                                        foreach (getJournal() as $d): ?>
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex px-2 py-1">
+                                                        <div>
+                                                            <img src="/assets/img/team-2.jpg" class="avatar avatar-sm me-3"
+                                                                alt="user1">
                                                         </div>
-                                                    </td>
-                                                    <td>
-                                                        <p class="text-xs font-weight-bold mb-0"><?= $d['job'] ?></p>
-                                                    </td>
-                                                    <td class="align-middle text-center text-sm">
-                                                        <p class="text-xs font-weight-bold mb-0"><?= $d['note'] ?></p>
-                                                    </td>
-                                                    <td class="align-middle text-center">
-                                                        <span
-                                                            class="text-secondary text-xs font-weight-bold"><?= $d['date'] ?></span>
-                                                    </td>
-                                                    <!-- <td class="align-middle">
+                                                        <div class="d-flex flex-column justify-content-center">
+                                                            <h6 class="mb-0 text-sm"><?= $d['student_name'] ?></h6>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <p class="text-xs font-weight-bold mb-0"><?= $d['job'] ?></p>
+                                                </td>
+                                                <td class="align-middle text-center text-sm">
+                                                    <p class="text-xs font-weight-bold mb-0"><?= $d['note'] ?></p>
+                                                </td>
+                                                <td class="align-middle text-center">
+                                                    <span
+                                                        class="text-secondary text-xs font-weight-bold"><?= $d['date'] ?></span>
+                                                </td>
+                                                <!-- <td class="align-middle">
                                                     <a href="/controller/journalController.php?action=delete&id=<?= $d['id'] ?>"
                                                         class="text-secondary font-weight-bold text-xs"
                                                         data-toggle="tooltip" data-original-title="Edit user">
                                                         Hapus
                                                     </a>
                                                 </td> -->
-                                                </tr>
-                                        <?php endforeach; ?>
+                                            </tr>
+                                            <?php
+                                            error_reporting(0);
+                                        endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -147,7 +154,7 @@ include '../inc/middleware.php';
                         <div class="col-lg-6 mb-lg-0 mb-4">
                             © 2024, Muhammad Khoyron Ahlaqul Firdaus - @alulcode404_
                         </div>
-                        
+
                     </div>
                 </div>
             </footer>

@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 $urlParams = $_GET['action'];
 
 include '../function/devisiFunction.php'; // Include the function file at the beginning

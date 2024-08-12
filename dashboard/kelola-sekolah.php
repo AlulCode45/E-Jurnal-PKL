@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 require_once ('../inc/config.php');
 require_once ('../function/sekolahFunction.php');
 include '../inc/middleware.php';
@@ -30,7 +31,9 @@ include '../inc/middleware.php';
 
 <body class="g-sidenav-show   bg-gray-100">
     <div class="min-height-300 bg-primary position-absolute w-100"></div>
-    <?php include '../template/sidebar.php' ?>
+    <?php
+    error_reporting(0);
+    include '../template/sidebar.php' ?>
     <main class="main-content position-relative border-radius-lg ">
         <!-- Navbar -->
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur"
@@ -100,7 +103,9 @@ include '../inc/middleware.php';
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach (getSchool() as $d): ?>
+                                        <?php
+                                        error_reporting(0);
+                                        foreach (getSchool() as $d): ?>
                                             <tr>
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
@@ -135,7 +140,9 @@ include '../inc/middleware.php';
                                                     </a>
                                                 </td>
                                             </tr>
-                                        <?php endforeach ?>
+                                            <?php
+                                            error_reporting(0);
+                                        endforeach ?>
                                     </tbody>
                                 </table>
                             </div>

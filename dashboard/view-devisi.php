@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 require_once ('../inc/config.php');
 require_once ('../function/devisiFunction.php');
 require_once ('../function/siswaFunction.php');
@@ -36,7 +37,9 @@ if (!isset($devisi['name'])) {
 
 <body class="g-sidenav-show   bg-gray-100">
     <div class="min-height-300 bg-primary position-absolute w-100"></div>
-    <?php include '../template/sidebar.php' ?>
+    <?php
+    error_reporting(0);
+    include '../template/sidebar.php' ?>
     <main class="main-content position-relative border-radius-lg ">
         <!-- Navbar -->
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur"
@@ -104,41 +107,45 @@ if (!isset($devisi['name'])) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($devisi['students'] as $d): ?>
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex px-2 py-1">
-                                                            <div>
-                                                                <img src="/assets/img/team-2.jpg" class="avatar avatar-sm me-3"
-                                                                    alt="user1">
-                                                            </div>
-                                                            <div class="d-flex flex-column justify-content-center">
-                                                                <h6 class="mb-0 text-sm"><?= $d['student_name'] ?></h6>
-                                                            </div>
+                                        <?php
+                                        error_reporting(0);
+                                        foreach ($devisi['students'] as $d): ?>
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex px-2 py-1">
+                                                        <div>
+                                                            <img src="/assets/img/team-2.jpg" class="avatar avatar-sm me-3"
+                                                                alt="user1">
                                                         </div>
-                                                    </td>
-                                                    <td>
-                                                        <p class="text-xs font-weight-bold mb-0"><?= $d['school_name'] ?></p>
-                                                    </td>
-                                                    <td class="align-middle">
-                                                        <a href="/dashboard/view-siswa.php?id=<?= $d['id'] ?>"
-                                                            class="text-secondary font-weight-bold text-xs ms-2"
-                                                            data-toggle="tooltip" data-original-title="Edit user">
-                                                            View
-                                                        </a>
-                                                        <a href="/dashboard/edit-siswa.php?id=<?= $d['id'] ?>"
-                                                            class="text-secondary font-weight-bold text-xs ms-2"
-                                                            data-toggle="tooltip" data-original-title="Edit user">
-                                                            Edit
-                                                        </a>
-                                                        <a href="/controller/siswaController.php?id=<?= $d['id'] ?>&action=delete"
-                                                            class="text-secondary font-weight-bold text-xs ms-2"
-                                                            data-toggle="tooltip" data-original-title="Edit user">
-                                                            Hapus
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                        <?php endforeach ?>
+                                                        <div class="d-flex flex-column justify-content-center">
+                                                            <h6 class="mb-0 text-sm"><?= $d['student_name'] ?></h6>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <p class="text-xs font-weight-bold mb-0"><?= $d['school_name'] ?></p>
+                                                </td>
+                                                <td class="align-middle">
+                                                    <a href="/dashboard/view-siswa.php?id=<?= $d['id'] ?>"
+                                                        class="text-secondary font-weight-bold text-xs ms-2"
+                                                        data-toggle="tooltip" data-original-title="Edit user">
+                                                        View
+                                                    </a>
+                                                    <a href="/dashboard/edit-siswa.php?id=<?= $d['id'] ?>"
+                                                        class="text-secondary font-weight-bold text-xs ms-2"
+                                                        data-toggle="tooltip" data-original-title="Edit user">
+                                                        Edit
+                                                    </a>
+                                                    <a href="/controller/siswaController.php?id=<?= $d['id'] ?>&action=delete"
+                                                        class="text-secondary font-weight-bold text-xs ms-2"
+                                                        data-toggle="tooltip" data-original-title="Edit user">
+                                                        Hapus
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                            error_reporting(0);
+                                        endforeach ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -153,7 +160,7 @@ if (!isset($devisi['name'])) {
                         <div class="col-lg-6 mb-lg-0 mb-4">
                             © 2024, Muhammad Khoyron Ahlaqul Firdaus - @alulcode404_
                         </div>
-                        
+
                     </div>
                 </div>
             </footer>

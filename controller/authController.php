@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 include '../function/AuthFunction.php';
 
 if ($_GET['action'] == 'login') {

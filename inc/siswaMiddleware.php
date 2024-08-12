@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 
 if (!$_SESSION['user']) {
     header('Location: /');
